@@ -25,10 +25,7 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
 
   // Lädt die Daten des Restaurants
   void _loadRestaurantData() async {
-    DocumentSnapshot restaurantSnapshot = await _firestore
-        .collection('Restaurants')
-        .doc(widget.restaurantId)
-        .get();
+    DocumentSnapshot restaurantSnapshot = await _firestore.collection('Restaurants').doc(widget.restaurantId).get();
 
     final restaurantData = restaurantSnapshot.data() as Map<String, dynamic>;
 
@@ -41,16 +38,13 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Restaurant Details"),
+        title: const Text("Restaurant Details"),
         actions: [
           IconButton(
-            icon: Icon(Icons.delete),
+            icon: const Icon(Icons.delete),
             onPressed: () {
               // Löscht das Restaurant
-              _firestore
-                  .collection('Restaurants')
-                  .doc(widget.restaurantId)
-                  .delete();
+              _firestore.collection('Restaurants').doc(widget.restaurantId).delete();
               Navigator.of(context).pop();
             },
           )
@@ -62,11 +56,11 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
           children: [
             TextField(
               controller: nameController,
-              decoration: InputDecoration(labelText: 'Name'),
+              decoration: const InputDecoration(labelText: 'Name'),
             ),
             TextField(
               controller: plzController,
-              decoration: InputDecoration(labelText: 'PLZ'),
+              decoration: const InputDecoration(labelText: 'PLZ'),
               keyboardType: TextInputType.number,
             ),
             TextField(
@@ -78,10 +72,7 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
             ElevatedButton(
               onPressed: () {
                 // Speichert die Änderungen des Restaurants
-                _firestore
-                    .collection('Restaurants')
-                    .doc(widget.restaurantId)
-                    .update({
+                _firestore.collection('Restaurants').doc(widget.restaurantId).update({
                   'Name': nameController.text,
                   'PLZ': int.parse(plzController.text),
                   'Rating': int.parse(ratingController.text),

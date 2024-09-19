@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:resturantapp/QueryTestScreen.dart';
 import 'RestaurantsDetailScreen.dart';
-import 'QueryTestScreen.dart';
 
 class RestaurantListPage extends StatefulWidget {
   @override
@@ -23,17 +23,14 @@ class _RestaurantListPageState extends State<RestaurantListPage> {
               Navigator.push(
                 context,
                 //Füge hier deinen Filter Screen ein
-                MaterialPageRoute(builder: (context) => ()),
+                MaterialPageRoute(builder: (context) => (QueryTestScreen())),
               );
             },
           ),
         ],
       ),
       body: StreamBuilder<QuerySnapshot>(
-        stream: _firestore
-            .collection('Restaurants')
-            .orderBy("PLZ", descending: true)
-            .snapshots(),
+        stream: _firestore.collection('Restaurants').orderBy("PLZ", descending: true).snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             print("Firestore error: ${snapshot.error}");
@@ -54,14 +51,12 @@ class _RestaurantListPageState extends State<RestaurantListPage> {
           return ListView.builder(
             itemCount: restaurants.length,
             itemBuilder: (context, index) {
-              final restaurantData =
-                  restaurants[index].data() as Map<String, dynamic>;
+              final restaurantData = restaurants[index].data() as Map<String, dynamic>;
               final restaurantId = restaurants[index].id;
 
               return ListTile(
                 title: Text(restaurantData['Name'] ?? 'Unknown'),
-                subtitle: Text(
-                    'PLZ: ${restaurantData['PLZ']}, Rating: ${restaurantData['Rating']}'),
+                subtitle: Text('PLZ: ${restaurantData['PLZ']}, Rating: ${restaurantData['Rating']}'),
                 //DetailScreen Navigation einbauen
                 onTap: () {
                   Navigator.push(
