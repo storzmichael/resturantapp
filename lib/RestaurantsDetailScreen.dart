@@ -65,10 +65,10 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
             ),
             TextField(
               controller: ratingController,
-              decoration: InputDecoration(labelText: 'Rating'),
+              decoration: const InputDecoration(labelText: 'Rating'),
               keyboardType: TextInputType.number,
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 // Speichert die Änderungen des Restaurants
@@ -79,7 +79,7 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
                 });
                 Navigator.of(context).pop();
               },
-              child: Text('Speichern'),
+              child: const Text('Speichern'),
             ),
           ],
         ),
